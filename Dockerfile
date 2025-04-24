@@ -21,6 +21,16 @@ RUN \
 # Bundle app source
 COPY . ./
 
+
+# ▶️ NEW: redirect writable folders to /data
+RUN mkdir -p /data/data /data/config /data/plugins /data/extensions \
+ && ln -s /data/data       ./data \
+ && ln -s /data/config     ./config \
+ && ln -s /data/plugins    ./plugins \
+ && mkdir -p ./public/scripts/extensions \
+ && ln -s /data/extensions ./public/scripts/extensions/third-party
+
+
 # Copy default chats, characters and user avatars to <folder>.default folder
 RUN \
   rm -f "config.yaml" || true && \
